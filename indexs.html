@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rental Mobil Premium - CarRent</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: #2c3e50;
+            font-size: 28px;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            color: #2c3e50;
+        }
+
+        .logo span {
+            color: #3498db;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: #3498db;
+        }
+
+        .cta-button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #2980b9;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #2c3e50;
+            cursor: pointer;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('phantom.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 160px 0 100px;
+            margin-top: 70px;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: #777;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cars-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .car-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .car-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .car-img {
+            height: 200px;
+            background-color: #ddd;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .car-info {
+            padding: 20px;
+        }
+
+        .car-info h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .car-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .car-details span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .car-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .price {
+            font-size: 24px;
+            font-weight: 700;
+            color: #3498db;
+        }
+
+        .price span {
+            font-size: 14px;
+            color: #777;
+            font-weight: normal;
+        }
+
+        .booking-form-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        .features-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            background-color: #e3f2fd;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: #3498db;
+            font-size: 28px;
+        }
+
+
+        @media (max-width: 992px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-menu {
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                background-color: white;
+                width: 100%;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s;
+                z-index: 999;
+            }
+            
+            .nav-menu.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .hero h2 {
+                font-size: 32px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .section-title h2 {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding: 140px 0 80px;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .booking-form-container {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-car"></i>
+                <h1>Car<span>Rent</span></h1>
+            </div>
+            
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-menu">
+                <li><a href="#home">Beranda</a></li>
+                <li><a href="#cars">Mobil</a></li>
+                <li><a href="#booking">Sewa Mobil</a></li>
+                <li><a href="relasi.php">Transaksi</a></li>
+            </ul>
+            
+            <a href="#booking" class="cta-button">Sewa Sekarang</a>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="container">
+            <h2>Sewa Mobil Terbaik untuk Setiap Perjalanan Anda</h2>
+            <p>Nikmati perjalanan nyaman dengan armada mobil terbaru dan terawat. Layanan rental mobil 24 jam dengan harga terjangkau dan proses sewa yang mudah.</p>
+            <a href="#booking" class="cta-button">Sewa Sekarang</a>
+        </div>
+    </section>
+
+    <section id="cars">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Car</h2>
+                <p>Pilih mobil sport Anda. Semua mobil dalam kondisi prima dan siap menemani Anda.</p>
+            </div>
+            <div class="cars-container" id="carsContainer">
+            </div>
+        </div>
+    </section>
+
+    <section id="booking">
+        <div class="container">
+            <div class="section-title">
+                <h2>Sewa Mobil</h2>
+                <p>Isi formulir berikut untuk menyewa mobil. Tim kami akan segera menghubungi Anda untuk konfirmasi.</p>
+            </div>
+            
+            <div class="booking-form-container">
+                <form id="bookingForm" method="post" action="simpan.php">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ktp">Nomor Ktp</label>
+                            <input type="text" id="ktp" name="noktp" class="form-control" placeholder="Masukkan nomor ktp" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Nama Lengkap</label>
+                            <input type="text" id="name" name="nama" class="form-control" placeholder="Masukkan nama lengkap" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Nomor Telepon</label>
+                            <input type="tel" id="nhp" name="nhp" class="form-control" placeholder="Masukkan nomor telepon" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="carType">Tipe Mobil</label>
+                            <select id="carType" name="tmobil" class="form-control" required>
+                                <option value="">Pilih tipe mobil</option>
+                                <option value="Mercedes Benz AMG G63">Mercedes Benz AMG G63</option>
+                                <option value="Mclaren 720s">Mclaren 720s</option>
+                                <option value="Ferrari SF90">Ferrari SF90</option>
+                                <option value="Lamborghini Aventador SVJ">Lamborghini Aventador SVJ</option>
+                                <option value="Porsche 911 GT3 RS">Porsche 911 GT3 RS</option>
+                                <option value="Rolls-Royce Phantom">Rolls-Royce Phantom</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="rentalPeriod">Lama Sewa</label>
+                            <select id="rentalPeriod" name="lsewa" class="form-control" required>
+                                <option value="">Pilih lama sewa</option>
+                                <option value="1">1 Hari</option>
+                                <option value="3">3 Hari</option>
+                                <option value="7">7 Hari</option>
+                                <option value="30">1 Bulan</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="startDate">Tanggal Mulai</label>
+                            <input type="date" id="startDate" name="tanggal" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="alamat">Alamat</label>
+                            <input type="text" id="alamat" name="alamat" class="form-control" placeholder="Masukkan Alamat" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="cta-button" style="width: 100%; padding: 15px; font-size: 18px;">Kirim Permintaan Sewa</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const cars = [
+            {
+                id: 1,
+                name: "Mercedes Benz AMG G63",
+                type: "SUV",
+                passengers: 4,
+                transmission: "Automatic",
+                fuel: "Pertamax Turbo",
+                price: 5000000,
+                image: "AMG g63.jpg"
+            },
+            {
+                id: 2,
+                name: "Mclaren 720s",
+                type: "Sport",
+                passengers: 2,
+                transmission: "Automatic",
+                fuel: "Pertamax Turbo",
+                price: 7900000,
+                image: "720S.jpg"
+            },
+            {
+                id: 3,
+                name: "Ferrari SF90",
+                type: "Sport",
+                passengers: 2,
+                transmission: "Automatic",
+                fuel: "Pertamax Turbo",
+                price: 8000000,
+                image: "SF90.jpg"
+            },
+            {
+                id: 4,
+                name: "Lamborghini Aventador SVJ",
+                type: "Sport",
+                passengers: 2,
+                transmission: "Automatic",
+                fuel: "Pertamax Turbo",
+                price: 7000000,
+                image: "Aventador SVJ.jpg"
+            },
+            {
+                id: 5,
+                name: "Porsche 911 GT3 RS",
+                type: "Sport",
+                passengers: 2,
+                transmission: "Automatic",
+                fuel: "Pertamax Turbo",
+                price: 6000000,
+                image: "911.jpg"
+            },
+            {
+                id: 6,
+                name: "Rolls-Royce Phantom",
+                type: "Luxury",
+                passengers: 4,
+                transmission: "Automatic",
+                fuel: "Pertamax Turbo",
+                price: 10000000,
+                image: "phantom.jpg"
+            }
+        ];
+
+        function displayCars() {
+            const carsContainer = document.getElementById('carsContainer');
+            carsContainer.innerHTML = '';
+            
+            cars.forEach(car => {
+                const carCard = document.createElement('div');
+                carCard.className = 'car-card';
+                carCard.innerHTML = `
+                    <div class="car-img" style="background-image: url('${car.image}')"></div>
+                    <div class="car-info">
+                        <h3>${car.name}</h3>
+                        <div class="car-details">
+                            <span><i class="fas fa-car"></i> ${car.type}</span>
+                            <span><i class="fas fa-user-friends"></i> ${car.passengers} orang</span>
+                        </div>
+                        <div class="car-details">
+                            <span><i class="fas fa-cogs"></i> ${car.transmission}</span>
+                            <span><i class="fas fa-gas-pump"></i> ${car.fuel}</span>
+                        </div>
+                        <div class="car-price">
+                            <div class="price">Rp ${car.price.toLocaleString('id-ID')}<span>/hari</span></div>
+                            <button class="cta-button rent-btn" data-id="${car.id}">Sewa</button>
+                        </div>
+                    </div>
+                `;
+                carsContainer.appendChild(carCard);
+            });
+            
+            document.querySelectorAll('.rent-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const carId = parseInt(this.getAttribute('data-id'));
+                    const selectedCar = cars.find(car => car.id === carId);
+                    document.getElementById('carType').value = selectedCar.name;
+                    document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+        }
+
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        
+
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('startDate').setAttribute('min', today);
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    navMenu.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            displayCars();
+        });
+    </script>
+</body>
+</html>
